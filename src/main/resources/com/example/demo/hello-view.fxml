@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="186.0" prefWidth="237.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.controller.NumController">
+
+    <TextField fx:id="numInput" prefHeight="26.0" prefWidth="115.0" />
+    <Label fx:id="numInt" layoutX="10" layoutY="15" text="20" />
+    <TextField fx:id="numDescription1" layoutX="1" layoutY="15" prefWidth="94.0" />
+    <Label fx:id="numPercent" layoutX="10" layoutY="30" text="3" />
+    <Button onAction="#onConvertButtonClick" prefHeight="39.0" prefWidth="87.0" text="Конвертировать!" />
+</VBox>
