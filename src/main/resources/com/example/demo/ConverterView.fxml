@@ -12,13 +12,10 @@
         <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
 
-    <!-- Заголовок (можно оставить или убрать) -->
     <Label text="КОНВЕРТЕР" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-    <!-- Поле для ввода числа -->
-    <TextField fx:id="inputField" promptText="Введите число"/>
+    <TextField fx:id="inputField" promptText="введи число"/>
 
-    <!-- Выбор единиц измерения -->
     <HBox spacing="10" alignment="CENTER">
         <VBox spacing="5">
             <Label text="Из:"/>
@@ -31,21 +28,22 @@
         </VBox>
     </HBox>
 
-    <!-- Кнопка конвертации -->
     <Button fx:id="convertButton"
             text="КОНВЕРТИРОВАТЬ"
             onAction="#handleConvert"
             prefWidth="200"/>
 
-    <!-- Результат -->
     <Label fx:id="resultLabel"
            style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: green;"
            alignment="CENTER"/>
 
-    <!-- Сообщение об ошибке -->
     <Label fx:id="errorLabel"
            style="-fx-text-fill: red;"
            wrapText="true"
            alignment="CENTER"/>
+
+    <!-- история конвертаций (НОВОЕ) -->
+    <Label text="История:" style="-fx-font-weight: bold; -fx-margin-top: 10px;"/>
+    <ListView fx:id="historyList" prefHeight="100"/>
 
 </VBox>

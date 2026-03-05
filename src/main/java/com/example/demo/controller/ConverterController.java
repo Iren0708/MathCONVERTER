@@ -3,25 +3,31 @@ package com.example.demo.controller;
 import com.example.demo.model.ConverterModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ConverterController {
 
     @FXML
-    private TextField inputField;      // куда пишем
+    private TextField inputField;
 
     @FXML
-    private ComboBox<String> fromComboBox;  // откуда
+    private ComboBox<String> fromComboBox;
 
     @FXML
-    private ComboBox<String> toComboBox;    // куда
+    private ComboBox<String> toComboBox;
 
     @FXML
-    private Label resultLabel;         // ответ
+    private Label resultLabel;
 
     @FXML
-    private Label errorLabel;          // ошибка
+    private Label errorLabel;
+
+    @FXML
+    private ListView<String> historyList;  // список истории
 
     private ConverterModel model;
+    private ObservableList<String> historyItems;
 
     @FXML
     private void initialize() {
@@ -33,28 +39,24 @@ public class ConverterController {
         fromComboBox.setValue("Десятичная");
         toComboBox.setValue("Процент");
 
-        // фильтр на ввод - только цифры, точка, запятая, минус, слеш, процент
+        // создаем список для истории
+        historyItems = FXCollections.observableArrayList();
+        historyList.setItems(historyItems);
+
+        // фильтр на ввод
         inputField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 return;
             }
-
-            // разрешаем только нужные символы
             if (!newValue.matches("[0-9\\.,\\-/%]*")) {
                 inputField.setText(oldValue);
             }
-
-            // проверка на несколько минусов
             if (newValue.chars().filter(ch -> ch == '-').count() > 1) {
                 inputField.setText(oldValue);
             }
-
-            // проверка на несколько слешей
             if (newValue.chars().filter(ch -> ch == '/').count() > 1) {
                 inputField.setText(oldValue);
             }
-
-            // проверка на несколько процентов
             if (newValue.chars().filter(ch -> ch == '%').count() > 1) {
                 inputField.setText(oldValue);
             }
@@ -81,6 +83,15 @@ public class ConverterController {
             resultLabel.setText("");
         } else {
             resultLabel.setText(result);
+
+            // добавляем в историю
+            String historyEntry = value + " " + from + " → " + result + " " + to;
+            historyItems.add(0, historyEntry);
+
+            // храним только последние 10 записей
+            if (historyItems.size() > 10) {
+                historyItems.remove(historyItems.size() - 1);
+            }
         }
     }
 }

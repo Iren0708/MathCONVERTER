@@ -16,7 +16,7 @@ public class Main extends Application {
 
         VBox root = loader.load();
 
-        Scene scene = new Scene(root, 400, 280);
+        Scene scene = new Scene(root, 400, 500);
 
         window.setTitle("Конвертер");
         window.setScene(scene);
