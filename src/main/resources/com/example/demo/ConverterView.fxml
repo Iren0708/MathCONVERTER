@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.demo.controller.ConverterController"
+      alignment="CENTER">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <!-- Заголовок (можно оставить или убрать) -->
+    <Label text="КОНВЕРТЕР" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Поле для ввода числа -->
+    <TextField fx:id="inputField" promptText="Введите число"/>
+
+    <!-- Выбор единиц измерения -->
+    <HBox spacing="10" alignment="CENTER">
+        <VBox spacing="5">
+            <Label text="Из:"/>
+            <ComboBox fx:id="fromComboBox" prefWidth="120"/>
+        </VBox>
+
+        <VBox spacing="5">
+            <Label text="В:"/>
+            <ComboBox fx:id="toComboBox" prefWidth="120"/>
+        </VBox>
+    </HBox>
+
+    <!-- Кнопка конвертации -->
+    <Button fx:id="convertButton"
+            text="КОНВЕРТИРОВАТЬ"
+            onAction="#handleConvert"
+            prefWidth="200"/>
+
+    <!-- Результат -->
+    <Label fx:id="resultLabel"
+           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: green;"
+           alignment="CENTER"/>
+
+    <!-- Сообщение об ошибке -->
+    <Label fx:id="errorLabel"
+           style="-fx-text-fill: red;"
+           wrapText="true"
+           alignment="CENTER"/>
+
+</VBox>
