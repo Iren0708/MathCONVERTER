@@ -27,34 +27,55 @@ public class ConverterController {
     private void initialize() {
         model = new ConverterModel();
 
-        // заполняем списки
         fromComboBox.getItems().addAll("Дробь", "Десятичная", "Процент");
         toComboBox.getItems().addAll("Дробь", "Десятичная", "Процент");
 
-        // что выбрано сразу
         fromComboBox.setValue("Десятичная");
         toComboBox.setValue("Процент");
+
+        // фильтр на ввод - только цифры, точка, запятая, минус, слеш, процент
+        inputField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                return;
+            }
+
+            // разрешаем только нужные символы
+            if (!newValue.matches("[0-9\\.,\\-/%]*")) {
+                inputField.setText(oldValue);
+            }
+
+            // проверка на несколько минусов
+            if (newValue.chars().filter(ch -> ch == '-').count() > 1) {
+                inputField.setText(oldValue);
+            }
+
+            // проверка на несколько слешей
+            if (newValue.chars().filter(ch -> ch == '/').count() > 1) {
+                inputField.setText(oldValue);
+            }
+
+            // проверка на несколько процентов
+            if (newValue.chars().filter(ch -> ch == '%').count() > 1) {
+                inputField.setText(oldValue);
+            }
+        });
     }
 
     @FXML
     private void handleConvert() {
-        // убираем старую ошибку
         errorLabel.setText("");
 
         String value = inputField.getText();
         String from = fromComboBox.getValue();
         String to = toComboBox.getValue();
 
-        // проверим что выбрано
         if (from == null || to == null) {
             errorLabel.setText("Выбери откуда и куда");
             return;
         }
 
-        // считаем
         String result = model.convert(value, from, to);
 
-        // показываем
         if (result.startsWith("Ошибка")) {
             errorLabel.setText(result);
             resultLabel.setText("");
